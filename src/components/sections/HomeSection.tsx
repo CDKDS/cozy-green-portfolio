@@ -1,18 +1,25 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, User } from "lucide-react";
 
 interface HomeSectionProps {
   onNavigate: (tab: string) => void;
+  profileImage?: string;
 }
 
-const HomeSection = ({ onNavigate }: HomeSectionProps) => {
+const HomeSection = ({ onNavigate, profileImage }: HomeSectionProps) => {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
       <div className="max-w-2xl text-center animate-fade-in">
-        {/* Decorative element */}
-        <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-matcha-light flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-            <span className="text-3xl">🍃</span>
-          </div>
+        {/* Profile Photo with green border */}
+        <div className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-8 rounded-full border-4 border-primary bg-matcha-light overflow-hidden flex items-center justify-center shadow-soft">
+          {profileImage ? (
+            <img 
+              src={profileImage} 
+              alt="Profile photo" 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <User className="w-16 h-16 md:w-20 md:h-20 text-primary/40" />
+          )}
         </div>
 
         <p className="text-muted-foreground mb-4 tracking-wide uppercase text-sm">
