@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Folder } from "lucide-react";
+import { ExternalLink, Github, ImageIcon } from "lucide-react";
 
 const projects = [
   {
@@ -8,6 +8,7 @@ const projects = [
     technologies: ["React", "TypeScript", "Chart.js", "Node.js"],
     github: "#",
     live: "#",
+    image: "",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const projects = [
     technologies: ["Next.js", "Prisma", "PostgreSQL", "Tailwind"],
     github: "#",
     live: "#",
+    image: "",
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ const projects = [
     description: "An open-source command-line tool that streamlines development workflows with automated task running and project scaffolding.",
     technologies: ["Node.js", "TypeScript", "Commander.js"],
     github: "#",
+    image: "",
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ const projects = [
     technologies: ["Python", "FastAPI", "Redis", "Docker"],
     github: "#",
     live: "#",
+    image: "",
   },
 ];
 
@@ -49,55 +53,63 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in"
+              className="group bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-matcha-light flex items-center justify-center">
-                  <Folder className="w-6 h-6 text-primary" />
-                </div>
-                <div className="flex gap-3">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label="View source code"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                  )}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label="View live project"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                  )}
-                </div>
+              {/* Project Image with green border */}
+              <div className="aspect-video bg-matcha-light border-b-4 border-primary flex items-center justify-center overflow-hidden">
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={`${project.title} screenshot`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <ImageIcon className="w-12 h-12 text-primary/30" />
+                )}
               </div>
 
-              <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
-
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs text-muted-foreground"
-                  >
-                    {tech}
-                    {project.technologies.indexOf(tech) < project.technologies.length - 1 && (
-                      <span className="ml-2">•</span>
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="font-display text-xl text-foreground group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <div className="flex gap-3">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        aria-label="View source code"
+                      >
+                        <Github className="w-5 h-5" />
+                      </a>
                     )}
-                  </span>
-                ))}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        aria-label="View live project"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
