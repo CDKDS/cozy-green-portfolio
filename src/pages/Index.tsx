@@ -1,12 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Navigation from "@/components/Navigation";
+import HomeSection from "@/components/sections/HomeSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const renderSection = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomeSection onNavigate={handleTabChange} />;
+      case "experience":
+        return <ExperienceSection />;
+      case "projects":
+        return <ProjectsSection />;
+      case "contact":
+        return <ContactSection />;
+      default:
+        return <HomeSection onNavigate={handleTabChange} />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
+      <main>{renderSection()}</main>
     </div>
   );
 };
